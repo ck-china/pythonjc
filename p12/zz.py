@@ -1,0 +1,2 @@
+import fzzl
+fzzl.fzzl()
