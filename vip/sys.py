@@ -1,91 +1,90 @@
 #网吧收银系统,
 def guize():
-         print("网吧的收费规则：普通用户，白天时段7点到20点，五元一小时，晚上段20点到第二天7点，晚段支持包夜，20点开始包夜20元，21点开始包夜18元，22点以后包夜16元 会员一律九折")
-import fzzl
-fzzl.fzzl()
+    print("网吧的收费规则：普通用户，白天时段7点到20点，五元一小时，晚上段20点到第二天7点，晚段支持包夜，20点开始包夜20元， 会员一律九折，合理分配时间，只支持一个时段内上网,否则报错")
 dic={"xx":0}
 def hello():
     print("*"*30)
     print("*"*30)
     print("欢迎光临真皮网咖")
 def yunSuanp():
+    money=0
     c1=float(input("请问您开始上网的时间是：（例子1 八点三十为8.30格式）"))
     if c1 % 1 == 0:
         c1 = c1
     elif c1 % 1 < 0.6:
         c1=c1//1+c1%1/0.6
     else:
-        print("error")
+        print("开始时间输入有误，满0.6进1,已自动进行换算")
     c2=float(input("请问您预计离开的时间是：（例子2 下午四点二十为16.20）"))
     if c2 % 1== 0:
         c2 = c2
     elif c2 % 1 < 0.6:
         c2=c2//1+c2%1/0.6
     else:
-        print("error")
-    if c1 >= 0 and c1 <=24 and c2 >=0 and c2 <=24:
-        if c1 >= 20 and c1 <= 24 or c1 > 0 and c1 < 7 and c2 > 0 and c2 <= 7 or c2 <= 24 and c2 >= 20:
-            if c1 >=20 or c1 < 7:
-                d=input("请问要办理包夜吗？要为 y  不用 为 no ：")
-                if d == "y":
-                    if c1 >=20 and c1 < 21:
-                        money=20
-                    elif c1 >= 21 and c1 < 22:
-                        money=18
-                    else:
-                        money=16
-                elif c1 < 24 and c1 >=20 and c2 < 24 and c2 > 20 :
-                    money=(c2-c1)*5
-                elif c1 <= 24 and c1 >=20 and c2 >0 and c2 <= 7:
-                    money=(24-c1+c2)*5
-                elif c1 >= 0 and c1 <= 7 and c2 >=0 and c2 <= 7:
-                    money=(c2-c1)*5
-        elif c1 >= 7 and c2 <= 20:
-            money=(c2-c1)*5
+        print("结束时间输入有误，满0.6进1,已自动进行换算")
+    if (c1 >= 0 and c1 <= 24 ) and (c2 >=0 and c2 <= 24):
+        if c1 >=7 and c1 <=20 and c2 >7 and c2 <= 20 :
+            money = (c2-c1)*5
+            print(money)
+            dic['xx']=dic['xx']+money
+        elif (c1 > 0 and c1 < 7) or( c1 >= 20 and c1 <=24 ) and (c2 > 0 and c2 <=7 ) or (c2 >=20 and c2 <=24):
+            d=input('包夜请输入 y:    ')
+            if d == "y":
+                money=20
+            elif c2 > 0 and c1 < 7 and c2 > 0 and c2 <= 7:
+                money=(c2-c1)*5
+            elif c1 >= 20 and c1 <=24 and c2 >0 and c2 <=7:
+                money=(24-c1+c2)*5
+            elif c1 >= 20 and c2 >20:
+                money=(c2-c1)*5
+            else:
+                print("输入的时间错误，自动跳回首页")
+            print(money)
+            dic['xx']=dic['xx']+money
+        else:
+            print("输入的时间错误，自动跳回首页")
     else:
-        print("输入的时间有误")
-    dic['xx']=dic['xx']+money
-    return(money)
+        print("输入的时间错误，自动跳回首页")
 def yunSuanvip():
+    money=0
     c1=float(input("请问您开始上网的时间是：（例子1 八点三十为8.30格式）"))
     if c1 % 1 == 0:
         c1 = c1
     elif c1 % 1 < 0.6:
         c1=c1//1+c1%1/0.6
     else:
-        print("error")
+        print("开始时间输入有误，满0.6进1,已自动进行换算")
     c2=float(input("请问您预计离开的时间是：（例子2 下午四点二十为16.20）"))
     if c2 % 1== 0:
         c2 = c2
     elif c2 % 1 < 0.6:
         c2=c2//1+c2%1/0.6
     else:
-        print("error")
-    if c1 >= 0 and c1 <=24 and c2 >=0 and c2 <=24:
-        if c1 >= 20 and c1 <= 24 or c1 > 0 and c1 < 7 and c2 > 0 and c2 <= 7 or c2 <= 24 and c2 >= 20:
-            if c1 >=20 or c1 < 7:
-                d=input("请问要办理包夜吗？要为 y  不用 为 no ：")
-                if d == "y":
-                    if c1 >=20 and c1 < 21:
-                        money=20
-                    elif c1 >= 21 and c1 < 22:
-                        money=18
-                    else:
-                        money=16
-                elif c1 < 24 and c1 >=20 and c2 < 24 and c2 > 20 :
-                    money=(c2-c1)*5
-                elif c1 <= 24 and c1 >=20 and c2 >0 and c2 <= 7:
-                    money=(24-c1+c2)*5
-                elif c1 >= 0 and c1 <= 7 and c2 >=0 and c2 <= 7:
-                    money=(c2-c1)*5
-        elif c1 >= 7 and c2 <= 20:
-            money=(c2-c1)*5
+        print("结束时间输入有误，满0.6进1,已自动进行换算")
+    if c1 >= 0 and c1 <= 24 and c2 >=0 and c2 <= 24:
+        if c1 >=7 and c1 <=20 and c2 >7 and c2 <= 20 :
+            money = (c2-c1)*5*0.9
+            dic['xx']=dic['xx']+money
+        elif c1 > 0 and c1 < 7 or c1 >= 20 and c1 <=24 and c2 > 0 and c2 <=7 or c2 >=20 and c2 <=24:
+            d=input('包夜请输入 y:    ')
+            if d == "y":
+                money=20*0.9
+            elif c2 > 0 and c1 < 7 and c2 > 0 and c2 <= 7:
+                money=(c2-c1)*5*0.9
+            elif c1 >= 20 and c1 <=24 and c2 >0 and c2 <=7:
+                money=(24-c1+c2)*5*0.9
+            elif c1 >= 20 and c2 >20:
+                money=(c2-c1)*5*0.9
+            else:
+                print("输入的时间错误，自动跳回首页")
+            print(money)
+            dic['xx']=dic['xx']+money
+        else:
+            print("输入的时间错误，自动跳回首页")
     else:
-        print("输入的时间有误")
-    money=money*0.9
-    dic['xx']=dic['xx']+money
-    return(money)
+            print("输入的时间错误，自动跳回首页")
 def lingshi():
+    money=0
     ss=input("请问需要购买什么种类：1.零食 2.饮料")
     if ss == "1":
         s=input("零食有泡面，火腿，瓜子，薯片，请问需要什么?")
