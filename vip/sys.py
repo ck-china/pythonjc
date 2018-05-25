@@ -1,7 +1,6 @@
 #网吧收银系统,
 def guize():
     print("网吧的收费规则：普通用户，白天时段7点到20点，五元一小时，晚上段20点到第二天7点，晚段支持包夜，20点开始包夜20元， 会员一律九折，合理分配时间，只支持一个时段内上网,否则报错")
-dic={"xx":0}
 def hello():
     print("*"*30)
     print("*"*30)
@@ -87,7 +86,7 @@ def lingshi():
     money=0
     ss=input("请问需要购买什么种类：1.零食 2.饮料")
     if ss == "1":
-        s=input("零食有泡面，火腿，瓜子，薯片，请问需要什么?")
+        s=input("零食有泡面/5￥，火腿1/￥，瓜子2/￥，薯片3/￥，请问需要什么?")
         if s == "泡面":
             print("泡面五元一桶")
             money=5
@@ -103,7 +102,7 @@ def lingshi():
         else:
             print("输入有误，自动弹回首页")
     elif ss == "2":
-        s=input("饮料有矿泉水，可乐，雪碧，柠檬茶，请问需要什么?")
+        s=input("饮料有矿泉水1/￥，可乐2.5/￥，雪碧3/￥，柠檬茶5/￥，请问需要什么?")
         if s == "矿泉水":
             print('矿泉水一元一瓶')
             money=1
@@ -121,11 +120,35 @@ def lingshi():
 
     else:
         print("您的输入有误，自动弹回首页")
-    global money
     dic['xx']=dic['xx']+money
+def addvip():
+    acc=input('请输入帐号:')
+    pwd=input('请输入密码:')
+    ID=input('请输入身份证号:')
+    mon=float(input('请充值:'))
+    dic1={'帐号':acc,'密码':pwd,'身份证':ID,'余额':mon}
+    lis.append(dic)
+def jiez():
+    a=input('请输入帐号:')
+    for dic1 in lis:
+        if a == dic1['帐号']:
+            b=input('请输入密码:')
+            if b == dic1['密码']:
+                if dic1['余额'] >= dic['xx']:
+                    dic1['余额']=dic1['余额']-dic['xx']
+                    print('支付成功，余额为%.2f元'%dic1['余额'])
+                else:
+                    print('余额不足')
+            else:
+                print('密码错误,跳回首页')
+        else:
+            print("帐号不存在")
+
+lis=[]
+dic={"xx":0}
 hello()
 while True:
-    a=input("上网请输入     1 \n购买商品请输入 2 \n退出请输入     q :")
+    a=input("上网请输入     1 \n购买商品请输入 2 \n办理会员请输入 3 \n结帐请输入 4 \n退出请输入     q :")
     if a == "1":
         guize()
         b=input("普通用户请输入 p ，会员请输入 vip：")
@@ -137,10 +160,15 @@ while True:
             print('当前消费%.2f元'%dic['xx'])
         else:
             print("输入有误")
-        print("当前需要支付%f元"%dic['xx'])
+        print("当前需要支付%.2f元"%dic['xx'])
     elif a == "2":
         lingshi()
         print('当前消费%.2f元'%dic['xx'])
+    elif a == "3":
+        addvip()
+    elif a == "4":
+        que=input('是否使用会员')
+
     elif a == "q":
         print("退出成功")
         print('共消费%.2f元'%dic['xx'])
