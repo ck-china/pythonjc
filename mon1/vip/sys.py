@@ -1,6 +1,6 @@
 #网吧收银系统,
 def guize():
-    print("网吧的收费规则：普通用户，白天时段7点到20点，五元一小时，晚上段20点到第二天7点，晚段支持包夜，20点开始包夜20元， 会员一律九折，合理分配时间，只支持一个时段内上网,否则报错")
+    print("网吧的收费规则：普通用户，五元一小时，白天段7点到晚20,晚上段20点到第二天7点，晚段支持包夜，20点开始包夜20元， 会员一律九折，合理分配时间，只支持一个时段内上网,否则报错")
 def hello():
     print("*"*30)
     print("*"*30)
@@ -44,44 +44,6 @@ def yunSuanp():
             print("输入的时间错误，自动跳回首页")
     else:
         print("输入的时间错误，自动跳回首页")
-def yunSuanvip():
-    money=0
-    c1=float(input("请问您开始上网的时间是：（例子1 八点三十为8.30格式）"))
-    if c1 % 1 == 0:
-        c1 = c1
-    elif c1 % 1 < 0.6:
-        c1=c1//1+c1%1/0.6
-    else:
-        print("开始时间输入有误，满0.6进1,已自动进行换算")
-    c2=float(input("请问您预计离开的时间是：（例子2 下午四点二十为16.20）"))
-    if c2 % 1== 0:
-        c2 = c2
-    elif c2 % 1 < 0.6:
-        c2=c2//1+c2%1/0.6
-    else:
-        print("结束时间输入有误，满0.6进1,已自动进行换算")
-    if c1 >= 0 and c1 <= 24 and c2 >=0 and c2 <= 24:
-        if c1 >=7 and c1 <=20 and c2 >7 and c2 <= 20 :
-            money = (c2-c1)*5*0.9
-            dic['xx']=dic['xx']+money
-        elif c1 > 0 and c1 < 7 or c1 >= 20 and c1 <=24 and c2 > 0 and c2 <=7 or c2 >=20 and c2 <=24:
-            d=input('包夜请输入 y:    ')
-            if d == "y":
-                money=20*0.9
-            elif c2 > 0 and c1 < 7 and c2 > 0 and c2 <= 7:
-                money=(c2-c1)*5*0.9
-            elif c1 >= 20 and c1 <=24 and c2 >0 and c2 <=7:
-                money=(24-c1+c2)*5*0.9
-            elif c1 >= 20 and c2 >20:
-                money=(c2-c1)*5*0.9
-            else:
-                print("输入的时间错误，自动跳回首页")
-            print(money)
-            dic['xx']=dic['xx']+money
-        else:
-            print("输入的时间错误，自动跳回首页")
-    else:
-            print("输入的时间错误，自动跳回首页")
 def lingshi():
     money=0
     ss=input("请问需要购买什么种类：1.零食 2.饮料")
@@ -98,7 +60,7 @@ def lingshi():
             money=2
         elif s == "薯片":
             print('薯片三元一包')
-            monry=3
+            money=3
         else:
             print("输入有误，自动弹回首页")
     elif ss == "2":
@@ -122,20 +84,23 @@ def lingshi():
         print("您的输入有误，自动弹回首页")
     dic['xx']=dic['xx']+money
 def addvip():
+    dic1={}
     acc=input('请输入帐号:')
     pwd=input('请输入密码:')
     ID=input('请输入身份证号:')
     mon=float(input('请充值:'))
     dic1={'帐号':acc,'密码':pwd,'身份证':ID,'余额':mon}
-    lis.append(dic)
+    lis.append(dic1)
 def jiez():
-    a=input('请输入帐号:')
+    shuru1=input('请输入帐号:')
     for dic1 in lis:
-        if a == dic1['帐号']:
-            b=input('请输入密码:')
-            if b == dic1['密码']:
+        if shuru1 == dic1['帐号']:
+            shuru2=input('请输入密码:')
+            if shuru2 == dic1['密码']:
                 if dic1['余额'] >= dic['xx']:
+                    dic['xx']=dic['xx']*0.9
                     dic1['余额']=dic1['余额']-dic['xx']
+                    print('共消费%.2f元'%dic['xx'])
                     print('支付成功，余额为%.2f元'%dic1['余额'])
                 else:
                     print('余额不足')
@@ -148,30 +113,32 @@ lis=[]
 dic={"xx":0}
 hello()
 while True:
-    a=input("上网请输入     1 \n购买商品请输入 2 \n办理会员请输入 3 \n结帐请输入 4 \n退出请输入     q :")
+    tiaojian=0
+    a=input("上网请输入     1 \n购买商品请输入 2 \n办理会员请输入 3 \n结帐请输入     4 \n退出请输入     q :")
     if a == "1":
         guize()
-        b=input("普通用户请输入 p ，会员请输入 vip：")
-        if b == "p":
-            yunSuanp()
-            print('当前消费%.2f元'%dic['xx'])
-        elif b == "vip":
-            yunSuanvip()
-            print('当前消费%.2f元'%dic['xx'])
-        else:
-            print("输入有误")
-        print("当前需要支付%.2f元"%dic['xx'])
+        yunSuanp()
+        print('当前消费%.2f元'%dic['xx'])
     elif a == "2":
+        print('会员消费九折')
         lingshi()
         print('当前消费%.2f元'%dic['xx'])
     elif a == "3":
         addvip()
     elif a == "4":
         que=input('是否使用会员')
-
+        if que == "是":
+            jiez()
+        else:
+            print('共消费%.2f元'%dic['xx'])
+            zhifu=float(input('请支付:'))
+            if zhifu >= dic['xx']:
+                print('支付成功，找零%.2f'%(zhifu-dic['xx']))
+                break
+            else:
+                print('兄哋，你蒙我呢')
     elif a == "q":
         print("退出成功")
-        print('共消费%.2f元'%dic['xx'])
         print('欢迎下次光临')
         break
     else:
