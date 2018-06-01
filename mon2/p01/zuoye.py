@@ -1,0 +1,11 @@
+a=open('test.txt','w')
+a.write('静夜思\n窗前明月光\n疑是地上霜\n举头望明月\n低头思故乡\n')
+a.close()
+a=open('test.txt','r')
+b=a.readlines()
+for i in b:
+    print(i[0:-1]+"**")
+a.close()
+print('打开的文件名称是：%s'%a.name)
+print('文件是否已经关闭：%s'%a.closed)
+print('打开文件的方式是：%s'%a.mode)
